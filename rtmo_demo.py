@@ -9,7 +9,7 @@ from rtmlib import Body, draw_skeleton
 device = 'cuda'
 backend = 'onnxruntime'  # opencv, onnxruntime, openvino
 
-video_path = "/home/zvc/Project/Dyn-HaMR/test/videos/demo2.mp4"
+video_path = "/home/zvc/Project/Dyn-HaMR/test/videos/demo3.mp4"
 cap = cv2.VideoCapture(video_path)
 
 openpose_skeleton = False  # True for openpose-style, False for mmpose-style
