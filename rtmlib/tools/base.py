@@ -60,6 +60,7 @@ class BaseTool(metaclass=ABCMeta):
 
         elif backend == 'onnxruntime':
             import onnxruntime as ort
+            ort.preload_dlls()
             providers = RTMLIB_SETTINGS[backend][device]
 
             self.session = ort.InferenceSession(path_or_bytes=onnx_model,
