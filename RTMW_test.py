@@ -49,7 +49,7 @@ if __name__ == '__main__':
             frame = cv2.imread(img_file)
             # s = time.time()
             keypoints, scores = hand(frame)
-            det_time = time.time() - s
+            # det_time = time.time() - s
             # print('det: ', det_time)
 
             img_show = frame.copy()
