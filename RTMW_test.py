@@ -33,7 +33,7 @@ if __name__ == '__main__':
     )
 
     for i, seq_name in tqdm(enumerate(sorted(os.listdir(args.dataset_dir)))):
-        if int(seq_name) % 200 != 0:
+        if args.dataset_name == "DexYCB" and int(seq_name) % 200 != 0:
             continue
         if args.dataset_name == "H20-ego" and i % 10 != 0:
             continue
