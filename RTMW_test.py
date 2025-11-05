@@ -47,6 +47,12 @@ if __name__ == '__main__':
         if len(img_files) == 0:
             print(f'No image files found in {video_path}, skip.')
             continue    
+
+        first_frame = cv2.imread(img_files[0])
+        img_h, img_w = first_frame.shape[:2]
+        video_output_path = os.path.join(save_dir, f'{seq_name}.mp4')
+        video_writer = cv2.VideoWriter(video_output_path,
+                                       cv2.VideoWriter_fourcc(*'mp4v'), 30, (img_w, img_h)) 
         for img_file in img_files:
             img_name = os.path.basename(img_file)
             frame = cv2.imread(img_file)
@@ -71,6 +77,6 @@ if __name__ == '__main__':
                                     kpt_thr=0.43
                                     )
 
-            save_path = os.path.join(save_dir, seq_name)
-            os.makedirs(save_path, exist_ok=True)
-            cv2.imwrite(os.path.join(save_path, img_name), img_show)
+            video_writer.write(img_show)
+        video_writer.release()
+        print(f'Saved visualization to {video_output_path}')
