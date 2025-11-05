@@ -21,7 +21,7 @@ if __name__ == '__main__':
     save_dir = os.path.join(args.save_root, args.dataset_name)
     os.makedirs(save_dir, exist_ok=True)
 
-    openpose_skeleton = True  # True for openpose-style, False for mmpose-style
+    openpose_skeleton = False  # True for openpose-style, False for mmpose-style
 
     body = Body(det='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_x_8xb8-300e_humanart-a39d44ed.zip',
                 det_input_size=(640, 640),
