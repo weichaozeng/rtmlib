@@ -12,8 +12,8 @@ if __name__ == '__main__':
     backend = 'onnxruntime'  # opencv, onnxruntime
 
     paser = argparse.ArgumentParser()
-    paser.add_argument('--dataset_name', type=str, default='HO3D_v2_eval')
-    paser.add_argument('--dataset_dir', type=str, default='/home/zvc/Data/HO3D_v2/evaluation/')
+    paser.add_argument('--dataset_name', type=str, default='DexYCB_80')
+    paser.add_argument('--dataset_dir', type=str, default='/home/zvc/Data/DexYCB/bop/data/')
     paser.add_argument('--video_dir', type=str, default='rgb', help='rgb | img | None')
     paser.add_argument('--save_root', type=str, default='vis_output/')
 
@@ -32,7 +32,9 @@ if __name__ == '__main__':
         device=device
     )
 
-    for seq_name in tqdm(os.listdir(args.dataset_dir)):
+    for seq_name in tqdm(sorted(os.listdir(args.dataset_dir))):
+        if int(seq_name) % 200 != 0:
+            continue
         seq_path = os.path.join(args.dataset_dir, seq_name)
         if not os.path.isdir(seq_path):
             continue
