@@ -137,8 +137,9 @@ class Body:
     def __call__(self, image: np.ndarray):
         if self.one_stage:
             keypoints, scores = self.pose_model(image)
+            bboxes = None
         else:
             bboxes = self.det_model(image)
             keypoints, scores = self.pose_model(image, bboxes=bboxes)
 
-        return keypoints, scores
+        return keypoints, scores, bboxes

@@ -2,7 +2,7 @@ import os
 import time
 import cv2
 import argparse
-from rtmlib import Body, draw_skeleton     
+from rtmlib import Body, draw_skeleton, draw_bbox
 from tqdm import tqdm
 
 
@@ -12,9 +12,9 @@ if __name__ == '__main__':
     backend = 'onnxruntime'  # opencv, onnxruntime
 
     paser = argparse.ArgumentParser()
-    paser.add_argument('--dataset_name', type=str, default='HO3D_v2_train')
-    paser.add_argument('--dataset_dir', type=str, default='/home/zvc/Data/HO3D_v2/train/')
-    paser.add_argument('--video_dir', type=str, default='', help='rgb | img | None')
+    paser.add_argument('--dataset_name', type=str, default='HO3D_v2_eval')
+    paser.add_argument('--dataset_dir', type=str, default='/home/zvc/Data/HO3D_v2/evaluation/')
+    paser.add_argument('--video_dir', type=str, default='rgb', help='rgb | img | None')
     paser.add_argument('--save_root', type=str, default='vis_output/')
 
     args = paser.parse_args()
@@ -51,7 +51,7 @@ if __name__ == '__main__':
             img_name = os.path.basename(img_file)
             frame = cv2.imread(img_file)
             # s = time.time()
-            keypoints, scores = body(frame)
+            keypoints, scores, bboxes = body(frame)
             # det_time = time.time() - s
             # print('det: ', det_time)
 
@@ -60,11 +60,16 @@ if __name__ == '__main__':
             # if you want to use black background instead of original image,
             # img_show = np.zeros(img_show.shape, dtype=np.uint8)
 
+            img_show = draw_bbox(img_show,
+                                bboxes,
+                                color=(0, 255, 0)
+                                )
             img_show = draw_skeleton(img_show,
                                     keypoints,
                                     scores,
                                     openpose_skeleton=openpose_skeleton,
-                                    kpt_thr=0.43)
+                                    kpt_thr=0.43
+                                    )
 
             save_path = os.path.join(save_dir, seq_name)
             os.makedirs(save_path, exist_ok=True)
