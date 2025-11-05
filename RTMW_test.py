@@ -2,7 +2,7 @@ import os
 import time
 import cv2
 import argparse
-from rtmlib import Hand, draw_skeleton     
+from rtmlib import Body, draw_skeleton     
 from tqdm import tqdm
 
 
@@ -23,11 +23,12 @@ if __name__ == '__main__':
 
     openpose_skeleton = True  # True for openpose-style, False for mmpose-style
 
-    hand = Hand(
-        to_openpose=openpose_skeleton,
-        backend=backend,
-        device=device
-    )
+    body = Body(det='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_x_8xb8-300e_humanart-a39d44ed.zip',
+                det_input_size=(640, 640),
+                pose='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-x_simcc-body7_pt-body7_700e-384x288-71d7b7e9_20230629.zip',
+                pose_input_size=(288, 384),
+                backend=backend,
+                device=device)
 
     for seq_name in tqdm(os.listdir(args.dataset_dir)):
         seq_path = os.path.join(args.dataset_dir, seq_name)
@@ -48,7 +49,7 @@ if __name__ == '__main__':
             img_name = os.path.basename(img_file)
             frame = cv2.imread(img_file)
             # s = time.time()
-            keypoints, scores = hand(frame)
+            keypoints, scores = body(frame)
             # det_time = time.time() - s
             # print('det: ', det_time)
 
