@@ -23,12 +23,14 @@ if __name__ == '__main__':
 
     openpose_skeleton = False  # True for openpose-style, False for mmpose-style
 
-    body = Body(det='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_x_8xb8-300e_humanart-a39d44ed.zip',
-                det_input_size=(640, 640),
-                pose='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-x_simcc-body7_pt-body7_700e-384x288-71d7b7e9_20230629.zip',
-                pose_input_size=(288, 384),
-                backend=backend,
-                device=device)
+    body = Body(
+        det='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_x_8xb8-300e_humanart-a39d44ed.zip',
+        det_input_size=(640, 640),
+        pose='https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-x_simcc-cocktail13_pt-ucoco_270e-384x288-0949e3a9_20230925.zip',
+        pose_input_size=(288, 384),
+        backend=backend,
+        device=device
+    )
 
     for seq_name in tqdm(os.listdir(args.dataset_dir)):
         seq_path = os.path.join(args.dataset_dir, seq_name)
