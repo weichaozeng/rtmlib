@@ -12,7 +12,7 @@ if __name__ == '__main__':
     backend = 'onnxruntime'  # opencv, onnxruntime
 
     paser = argparse.ArgumentParser()
-    paser.add_argument('--dataset_name', type=str, default='DexYCB_80')
+    paser.add_argument('--dataset_name', type=str, default='DexYCB_40')
     paser.add_argument('--dataset_dir', type=str, default='/home/zvc/Data/DexYCB/bop/data/')
     paser.add_argument('--video_dir', type=str, default='rgb', help='rgb | img | None')
     paser.add_argument('--save_root', type=str, default='vis_output/')
